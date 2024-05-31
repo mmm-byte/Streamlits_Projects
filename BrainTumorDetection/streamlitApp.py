@@ -158,7 +158,7 @@ def detect_tumor_in_the_scan(img_array):
 
     X = streamlit_load_data(img_array, (IMG_WIDTH, IMG_HEIGHT))
     best_model = load_model(
-        filepath="./Brain_Tumor_Detection_Models/cnn-parameters-improvement-05-0.92.model"
+        filepath="./BrainTumorDetection/Brain_Tumor_Detection_Models/cnn-parameters-improvement-05-0.92.model"
     )
     y = best_model.predict(X)
     Detection_Result = (
