@@ -185,7 +185,7 @@ footer = """
     If you find BrainGazer useful or interesting, please consider starring it on GitHub.
     <hr>
     <a href="https://github.com/mmm-byte/Streamlits_Projects/tree/main/BrainTumorDetection" target="_blank">
-    <img src="https://img.shields.io/github/stars/SaiJeevanPuchakayala/BrainGazer.svg?style=social" alt="GitHub stars">
+    <img src="" alt="GitHub stars">
   </a>
 </div>
 """
