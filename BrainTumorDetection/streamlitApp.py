@@ -9,7 +9,7 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 np.set_printoptions(suppress=True)
 
 # Define the layout of the app
-st.set_page_config(page_title="BrainGazer", page_icon=":camera:")
+st.set_page_config(page_title="BrainTumorDectector", page_icon=":camera:")
 
 ############################################################
 def crop_brain_contour(image, plot=False):
@@ -99,7 +99,7 @@ def streamlit_load_data(image, image_size):
     return X
 
 
-st.header("BrainGazer: A Brain Tumor Detection Algorithm")
+st.header("Brain Tumor Dectection: A Brain Tumor Detection Algorithm")
 st.write(
     "Try uploading an MRI Scan and watch how a CNN based algorithm with 91% accuracy detect the possibility of a brain tumor in the uploaded MRI Scan."
 )
