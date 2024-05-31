@@ -114,7 +114,7 @@ st.caption(
 
 with st.sidebar:
     st.header("BrainGazer")
-    img = Image.open("./Images/brain_scans.png")
+    img = Image.open("./BrainTumorDetection/Images/brain_scans.png")
     st.image(img)
     st.subheader("About BrainGazer")
     st.write(
