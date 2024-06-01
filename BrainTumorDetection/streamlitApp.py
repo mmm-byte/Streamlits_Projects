@@ -130,7 +130,7 @@ with st.sidebar:
     )
 
 # Comment down the uploaded_file varaible below to accept camera_input image.
- uploaded_file = st.file_uploader (
+uploaded_file = st.file_uploader (
      label="Upload your MRI Scan",
      accept_multiple_files=False,
      label_visibility="visible",
