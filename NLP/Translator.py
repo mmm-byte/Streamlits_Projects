@@ -44,6 +44,7 @@ def main():
             translated_text = translate_text(text, dest_lang.lower(), src_lang.lower())
             st.write("Translated Text:")
             st.write(translated_text)
+            st.markdown(get_binary_file_downloader_html('translated.txt', 'Translated Text'), unsafe_allow_html=True)
 
     elif input_type == "Upload File":
         file = st.file_uploader("Upload a file:", type=['xlsx', 'pptx', 'docx', 'txt'])
@@ -60,7 +61,13 @@ def main():
                         src_lang = detect_language(text)
                 translate_file(file_path, dest_lang.lower(), src_lang.lower())
                 st.write("File Translated Successfully!")
-                st.download_button(label="Download Translated File", data=open("translated.txt", 'rb').read(), file_name="translated.txt")
+                st.markdown(get_binary_file_downloader_html('translated.txt', 'Translated File'), unsafe_allow_html=True)
+
+def get_binary_file_downloader_html(bin_file, file_label='File'):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    b64 = base64.b64encode(data).decode()
+    return f'<a href="data:file/txt;base64,{b64}" download="{bin_file}">Click here to download {file_label}</a>'
 
 if __name__ == "__main__":
     main()
