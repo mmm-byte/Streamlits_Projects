@@ -39,8 +39,8 @@ def main():
     # Get user input
     if input_type == "Text":
         text = st.text_area("Enter text to translate:")
-        src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean"])  # Add more languages as needed
-        dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean"])  # Add more languages as needed
+        src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
+        dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
         if st.button("Translate"):
             if src_lang == "Auto":
                 src_lang = detect_language(text)
@@ -58,8 +58,8 @@ def main():
             file_path = os.path.join("temp", file.name)
             with open(file_path, 'wb') as f:
                 f.write(file.getvalue())
-            src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean"])  # Add more languages as needed
-            dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean"])  # Add more languages as needed
+            src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
+            dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
             if st.button("Translate"):
                 if src_lang == "Auto":
                     with open(file_path, 'r', encoding='utf-8') as f:
