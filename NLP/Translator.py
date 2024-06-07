@@ -36,8 +36,8 @@ def main():
     # Get user input
     if input_type == "Text":
         text = st.text_area("Enter text to translate:")
-        src_lang = st.selectbox("Select input language:", ["Auto", "English", "French", "Spanish"])  # Add more languages as needed
-        dest_lang = st.selectbox("Select output language:", ["English", "French", "Spanish"])  # Add more languages as needed
+        src_lang = st.selectbox("Select input language:", ["Auto", "English", "French", "Spanish", "Chinese", "Japanese", "Korean", "Hindi", "Arabic", "Bengali", "Russian", "Punjabi", "Turkish", "Vietnamese", "Marathi", "Telugu", "Tamil", "Urdu", "Gujarati", "Kannada", "Malayalam", "Odia", "Thai", "Malay", "Indonesian", "Filipino", "Sinhala", "Malay", "Indonesian", "Bengali", "Sinhala", "Vietnamese", "Mandarin Chinese", "Cantonese", "Hokkien", "Hakka", "Tamil", "Thai", "Sinhala", "Tamil", "Vietnamese", "Mandarin Chinese", "Cantonese", "Shanghainese", "Hokkien", "Hakka", "Japanese"])  # Add more languages as needed
+        dest_lang = st.selectbox("Select output language:", ["English", "French", "Spanish", "Chinese", "Japanese", "Korean", "Hindi", "Arabic", "Bengali", "Russian", "Punjabi", "Turkish", "Vietnamese", "Marathi", "Telugu", "Tamil", "Urdu", "Gujarati", "Kannada", "Malayalam", "Odia", "Thai", "Malay", "Indonesian", "Filipino", "Sinhala", "Malay", "Indonesian", "Bengali", "Sinhala", "Vietnamese", "Mandarin Chinese", "Cantonese", "Hokkien", "Hakka", "Tamil", "Thai", "Sinhala", "Tamil", "Vietnamese", "Mandarin Chinese", "Cantonese", "Shanghainese", "Hokkien", "Hakka", "Japanese"])  # Add more languages as needed
         if st.button("Translate"):
             if src_lang == "Auto":
                 src_lang = detect_language(text)
@@ -51,8 +51,8 @@ def main():
             file_path = os.path.join("temp", file.name)
             with open(file_path, 'wb') as f:
                 f.write(file.getvalue())
-            src_lang = st.selectbox("Select input language:", ["Auto", "English", "French", "Spanish"])  # Add more languages as needed
-            dest_lang = st.selectbox("Select output language:", ["English", "French", "Spanish"])  # Add more languages as needed
+            src_lang = st.selectbox("Select input language:", ["Auto", "English", "French", "Spanish", "Chinese", "Japanese", "Korean", "Hindi", "Arabic", "Bengali", "Russian", "Punjabi", "Turkish", "Vietnamese", "Marathi", "Telugu", "Tamil", "Urdu", "Gujarati", "Kannada", "Malayalam", "Odia", "Thai", "Malay", "Indonesian", "Filipino", "Sinhala", "Malay", "Indonesian", "Bengali", "Sinhala", "Vietnamese", "Mandarin Chinese", "Cantonese", "Hokkien", "Hakka", "Tamil", "Thai", "Sinhala", "Tamil", "Vietnamese", "Mandarin Chinese", "Cantonese", "Shanghainese", "Hokkien", "Hakka", "Japanese"])  # Add more languages as needed
+            dest_lang = st.selectbox("Select output language:", ["English", "French", "Spanish", "Chinese", "Japanese", "Korean", "Hindi", "Arabic", "Bengali", "Russian", "Punjabi", "Turkish", "Vietnamese", "Marathi", "Telugu", "Tamil", "Urdu", "Gujarati", "Kannada", "Malayalam", "Odia", "Thai", "Malay", "Indonesian", "Filipino", "Sinhala", "Malay", "Indonesian", "Bengali", "Sinhala", "Vietnamese", "Mandarin Chinese", "Cantonese", "Hokkien", "Hakka", "Tamil", "Thai", "Sinhala", "Tamil", "Vietnamese", "Mandarin Chinese", "Cantonese", "Shanghainese", "Hokkien", "Hakka", "Japanese"])  # Add more languages as needed
             if st.button("Translate"):
                 if src_lang == "Auto":
                     with open(file_path, 'r', encoding='utf-8') as f:
