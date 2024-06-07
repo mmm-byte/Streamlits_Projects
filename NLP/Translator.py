@@ -44,7 +44,7 @@ def main():
             translated_text = translate_text(text, dest_lang.lower(), src_lang.lower())
             st.write("Translated Text:")
             st.write(translated_text)
-            st.markdown(get_binary_file_downloader_html('translated.txt', 'Translated Text'), unsafe_allow_html=True)
+            #st.markdown(get_binary_file_downloader_html('translated.txt', 'Translated Text'), unsafe_allow_html=True)
 
     elif input_type == "Upload File":
         file = st.file_uploader("Upload a file:", type=['xlsx', 'pptx', 'docx', 'txt'])
