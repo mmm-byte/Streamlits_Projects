@@ -50,6 +50,8 @@ def main():
         file = st.file_uploader("Upload a file:", type=['xlsx', 'pptx', 'docx', 'txt'])
         if file is not None:
             file_path = os.path.join("temp", file.name)
+            # file_path = os.path.join("temp", file.name)
+            print("File path:", file_path)
             with open(file_path, 'wb') as f:
                 f.write(file.getvalue())
             src_lang = st.selectbox("Select input language:", ["Auto", "English", "French", "Spanish", "Chinese", "Japanese", "Korean", "Hindi", "Arabic", "Bengali", "Russian", "Punjabi", "Turkish", "Vietnamese", "Marathi", "Telugu", "Tamil", "Urdu", "Gujarati", "Kannada", "Malayalam", "Odia", "Thai", "Malay", "Indonesian", "Filipino", "Sinhala", "Malay", "Indonesian", "Bengali", "Sinhala", "Vietnamese", "Mandarin Chinese", "Cantonese", "Hokkien", "Hakka", "Tamil", "Thai", "Sinhala", "Tamil", "Vietnamese", "Mandarin Chinese", "Cantonese", "Shanghainese", "Hokkien", "Hakka", "Japanese"])  # Add more languages as needed
