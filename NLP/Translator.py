@@ -14,11 +14,11 @@ def translate_text(text, dest_lang, src_lang):
     translator = Translator()
     return translator.translate(text, dest=dest_lang, src=src_lang).text
 
-
 def translate_file(file, dest_lang, src_lang):
     translated_file = None
     if file.name.endswith('.xlsx'):
-        df = pd.read_excel(file)
+        # Specify latin1 encoding for reading the Excel file
+        df = pd.read_excel(file, engine='openpyxl', encoding='latin1')
         for col in df.columns:
             for i, cell_value in enumerate(df[col]):
                 if not pd.isnull(cell_value):
@@ -28,7 +28,8 @@ def translate_file(file, dest_lang, src_lang):
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             df.to_excel(writer, index=False)
         translated_file = output.getvalue()
-    return translated_file, file.name[:-5] + '_translated.xlsx'
+    return translated_file, file.name[:-5] + '_translated.xlsx'  # Change the file extension for Excel files
+
 
 
 def main():
