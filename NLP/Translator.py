@@ -15,24 +15,28 @@ def translate_text(text, dest_lang, src_lang):
 
 # Function to translate file
 def translate_file(file_path, dest_lang, src_lang):
-    translated_file_content = ""
-    file_type = ""
+    translated_file_path = ""
     if file_path.endswith('.xlsx'):
         df = pd.read_excel(file_path)
         df = df.applymap(lambda x: translate_text(str(x), dest_lang, src_lang))
-        translated_file_content = df.to_excel(index=False)
-        file_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        translated_file_path = os.path.join("translated_files", "translated.xlsx")
+        df.to_excel(translated_file_path, index=False)
     elif file_path.endswith('.pptx') or file_path.endswith('.docx') or file_path.endswith('.txt'):
         with open(file_path, 'r', encoding='utf-8') as file:
             text = file.read()
             translated_text = translate_text(text, dest_lang, src_lang)
-        translated_file_content = translated_text
-        file_type = "text/plain"
-    return translated_file_content, file_type
+        translated_file_path = os.path.join("translated_files", "translated.txt")
+        with open(translated_file_path, 'w', encoding='utf-8') as file:
+            file.write(translated_text)
+    return translated_file_path
 
 # Main function
 def main():
     st.title("Language Translator")
+
+    # Ensure translated files directory exists
+    if not os.path.exists("translated_files"):
+        os.makedirs("translated_files")
 
     # Input options
     input_type = st.radio("Select input type:", ("Text", "Upload File"))
@@ -48,12 +52,10 @@ def main():
             translated_text = translate_text(text, dest_lang.lower(), src_lang.lower())
             st.write("Translated Text:")
             st.write(translated_text)
-            st.download_button(
-                label="Download Translated Text",
-                data=translated_text,
-                file_name="translated_text.txt",
-                mime="text/plain"
-            )
+            translated_file_path = os.path.join("translated_files", "translated_text.txt")
+            with open(translated_file_path, 'w', encoding='utf-8') as file:
+                file.write(translated_text)
+            st.write(f"Translated text saved to {translated_file_path}")
 
     elif input_type == "Upload File":
         file = st.file_uploader("Upload a file:", type=['xlsx', 'pptx', 'docx', 'txt'])
@@ -70,14 +72,9 @@ def main():
                     with open(file_path, 'r', encoding='utf-8') as f:
                         text = f.read()
                         src_lang = detect_language(text)
-                translated_file_content, file_type = translate_file(file_path, dest_lang.lower(), src_lang.lower())
+                translated_file_path = translate_file(file_path, dest_lang.lower(), src_lang.lower())
                 st.write("File Translated Successfully!")
-                st.download_button(
-                    label="Download Translated File",
-                    data=translated_file_content,
-                    file_name=f"translated_{file.name}",
-                    mime=file_type
-                )
+                st.write(f"Translated file saved to {translated_file_path}")
 
 if __name__ == "__main__":
     main()
