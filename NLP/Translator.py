@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from googletrans import Translator
 import base64
+from io import BytesIO
 
 # Function to detect language
 def detect_language(text):
@@ -13,21 +14,22 @@ def translate_text(text, dest_lang, src_lang):
     translator = Translator()
     return translator.translate(text, dest=dest_lang, src=src_lang).text
 
-# Function to translate file
+
 def translate_file(file, dest_lang, src_lang):
     translated_file = None
     if file.name.endswith('.xlsx'):
         df = pd.read_excel(file)
         df = df.applymap(lambda x: translate_text(str(x), dest_lang, src_lang))
-        with pd.ExcelWriter('translated.xlsx', engine='xlsxwriter') as writer:
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             df.to_excel(writer, index=False)
-        with open('translated.xlsx', 'rb') as f:
-            translated_file = f.read()
+        translated_file = output.getvalue()
     elif file.name.endswith('.txt'):
         text = file.getvalue().decode('utf-8')
         translated_text = translate_text(text, dest_lang, src_lang)
         translated_file = translated_text.encode('utf-8')
-    return translated_file, file.name[:-4] + '_translated.txt'  # Remove the extension for the file name
+    return translated_file, file.name[:-4] + '_translated.xlsx'  # Change the file extension for Excel files
+
 
 def main():
     st.title("Language Translator")
