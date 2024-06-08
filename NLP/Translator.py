@@ -1,3 +1,4 @@
+import tempfile
 import streamlit as st
 from googletrans import Translator
 import pandas as pd
