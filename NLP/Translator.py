@@ -2,7 +2,6 @@ import streamlit as st
 from googletrans import Translator
 import pandas as pd
 import os
-import base64
 
 # Function to detect language
 def detect_language(text):
@@ -16,18 +15,20 @@ def translate_text(text, dest_lang, src_lang):
 
 # Function to translate file
 def translate_file(file_path, dest_lang, src_lang):
+    translated_file_content = ""
+    file_type = ""
     if file_path.endswith('.xlsx'):
         df = pd.read_excel(file_path)
         df = df.applymap(lambda x: translate_text(str(x), dest_lang, src_lang))
-        df.to_excel("translated.xlsx", index=False)
-        return "translated.xlsx"
+        translated_file_content = df.to_excel(index=False)
+        file_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     elif file_path.endswith('.pptx') or file_path.endswith('.docx') or file_path.endswith('.txt'):
         with open(file_path, 'r', encoding='utf-8') as file:
             text = file.read()
             translated_text = translate_text(text, dest_lang, src_lang)
-        with open("translated.txt", 'w', encoding='utf-8') as file:
-            file.write(translated_text)
-        return "translated.txt"
+        translated_file_content = translated_text
+        file_type = "text/plain"
+    return translated_file_content, file_type
 
 # Main function
 def main():
@@ -39,16 +40,20 @@ def main():
     # Get user input
     if input_type == "Text":
         text = st.text_area("Enter text to translate:")
-        src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
-        dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
+        src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean", "Indonesian"])  # Add more languages as needed
+        dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean", "Indonesian"])  # Add more languages as needed
         if st.button("Translate"):
             if src_lang == "Auto":
                 src_lang = detect_language(text)
             translated_text = translate_text(text, dest_lang.lower(), src_lang.lower())
             st.write("Translated Text:")
             st.write(translated_text)
-            download_link = get_download_link(translated_text, "translated_text.txt")
-            st.markdown(download_link, unsafe_allow_html=True)
+            st.download_button(
+                label="Download Translated Text",
+                data=translated_text,
+                file_name="translated_text.txt",
+                mime="text/plain"
+            )
 
     elif input_type == "Upload File":
         file = st.file_uploader("Upload a file:", type=['xlsx', 'pptx', 'docx', 'txt'])
@@ -58,21 +63,21 @@ def main():
             file_path = os.path.join("temp", file.name)
             with open(file_path, 'wb') as f:
                 f.write(file.getvalue())
-            src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
-            dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean", "Indonesia"])  # Add more languages as needed
+            src_lang = st.selectbox("Select input language:", ["Auto", "English", "Chinese", "Japanese", "Korean", "Indonesian"])  # Add more languages as needed
+            dest_lang = st.selectbox("Select output language:", ["English", "Chinese", "Japanese", "Korean", "Indonesian"])  # Add more languages as needed
             if st.button("Translate"):
                 if src_lang == "Auto":
                     with open(file_path, 'r', encoding='utf-8') as f:
                         text = f.read()
                         src_lang = detect_language(text)
-                translated_file = translate_file(file_path, dest_lang.lower(), src_lang.lower())
+                translated_file_content, file_type = translate_file(file_path, dest_lang.lower(), src_lang.lower())
                 st.write("File Translated Successfully!")
-                download_link = get_download_link(translated_file, translated_file)
-                st.markdown(download_link, unsafe_allow_html=True)
-
-def get_download_link(file_content, file_name):
-    b64 = base64.b64encode(file_content.encode()).decode()
-    return f'<a href="data:file/txt;base64,{b64}" download="{file_name}">Click here to download {file_name}</a>'
+                st.download_button(
+                    label="Download Translated File",
+                    data=translated_file_content,
+                    file_name=f"translated_{file.name}",
+                    mime=file_type
+                )
 
 if __name__ == "__main__":
     main()
