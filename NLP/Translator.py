@@ -49,11 +49,11 @@ def main():
     elif input_type == "Upload File":
         file = st.file_uploader("Upload a file:", type=['xlsx', 'pptx', 'docx', 'txt'])
         if file is not None:
-            file_path = os.path.join("temp", file.name)
-            # file_path = os.path.join("temp", file.name)
-            print("File path:", file_path)
-            with open(file_path, 'wb') as f:
+            temp = tempfile.mkdtemp()
+            with open(os.path.join(temp, file.name), "wb") as f:
                 f.write(file.getvalue())
+            file_path = os.path.join("temp", file.name)
+            print("File path:", file_path)
             src_lang = st.selectbox("Select input language:", ["Auto", "English", "French", "Spanish", "Chinese", "Japanese", "Korean", "Hindi", "Arabic", "Bengali", "Russian", "Punjabi", "Turkish", "Vietnamese", "Marathi", "Telugu", "Tamil", "Urdu", "Gujarati", "Kannada", "Malayalam", "Odia", "Thai", "Malay", "Indonesian", "Filipino", "Sinhala", "Malay", "Indonesian", "Bengali", "Sinhala", "Vietnamese", "Mandarin Chinese", "Cantonese", "Hokkien", "Hakka", "Tamil", "Thai", "Sinhala", "Tamil", "Vietnamese", "Mandarin Chinese", "Cantonese", "Shanghainese", "Hokkien", "Hakka", "Japanese"])  # Add more languages as needed
             dest_lang = st.selectbox("Select output language:", ["English", "French", "Spanish", "Chinese", "Japanese", "Korean", "Hindi", "Arabic", "Bengali", "Russian", "Punjabi", "Turkish", "Vietnamese", "Marathi", "Telugu", "Tamil", "Urdu", "Gujarati", "Kannada", "Malayalam", "Odia", "Thai", "Malay", "Indonesian", "Filipino", "Sinhala", "Malay", "Indonesian", "Bengali", "Sinhala", "Vietnamese", "Mandarin Chinese", "Cantonese", "Hokkien", "Hakka", "Tamil", "Thai", "Sinhala", "Tamil", "Vietnamese", "Mandarin Chinese", "Cantonese", "Shanghainese", "Hokkien", "Hakka", "Japanese"])  # Add more languages as needed
             if st.button("Translate"):
@@ -64,6 +64,7 @@ def main():
                 translate_file(file_path, dest_lang.lower(), src_lang.lower())
                 st.write("File Translated Successfully!")
                 st.markdown(get_binary_file_downloader_html('translated.txt', 'Translated File'), unsafe_allow_html=True)
+                os.rmdir(temp)
 
 def get_binary_file_downloader_html(bin_file, file_label='File'):
     with open(bin_file, 'rb') as f:
