@@ -2,6 +2,7 @@ import streamlit as st
 from googletrans import Translator
 import pandas as pd
 import os
+import io
 
 # Function to detect language
 def detect_language(text):
@@ -16,18 +17,21 @@ def translate_text(text, dest_lang, src_lang):
 # Function to translate file
 def translate_file(file_path, dest_lang, src_lang):
     translated_file_path = ""
-    if file_path.endswith('.xlsx'):
-        df = pd.read_excel(file_path)
-        df = df.applymap(lambda x: translate_text(str(x), dest_lang, src_lang))
-        translated_file_path = os.path.join("translated_files", "translated.xlsx")
-        df.to_excel(translated_file_path, index=False)
-    elif file_path.endswith('.pptx') or file_path.endswith('.docx') or file_path.endswith('.txt'):
-        with open(file_path, 'r', encoding='utf-8') as file:
-            text = file.read()
-            translated_text = translate_text(text, dest_lang, src_lang)
-        translated_file_path = os.path.join("translated_files", "translated.txt")
-        with open(translated_file_path, 'w', encoding='utf-8') as file:
-            file.write(translated_text)
+    try:
+        if file_path.endswith('.xlsx'):
+            df = pd.read_excel(file_path)
+            df = df.applymap(lambda x: translate_text(str(x), dest_lang, src_lang) if pd.notnull(x) else "")
+            translated_file_path = os.path.join("translated_files", "translated.xlsx")
+            df.to_excel(translated_file_path, index=False)
+        elif file_path.endswith('.pptx') or file_path.endswith('.docx') or file_path.endswith('.txt'):
+            with open(file_path, 'r', encoding='utf-8') as file:
+                text = file.read()
+                translated_text = translate_text(text, dest_lang, src_lang)
+            translated_file_path = os.path.join("translated_files", "translated.txt")
+            with open(translated_file_path, 'w', encoding='utf-8') as file:
+                file.write(translated_text)
+    except Exception as e:
+        st.error(f"An error occurred during translation: {e}")
     return translated_file_path
 
 # Main function
