@@ -19,16 +19,16 @@ def translate_file(file, dest_lang, src_lang):
     translated_file = None
     if file.name.endswith('.xlsx'):
         df = pd.read_excel(file)
-        df = df.applymap(lambda x: translate_text(str(x), dest_lang, src_lang))
+        for col in df.columns:
+            for i, cell_value in enumerate(df[col]):
+                if not pd.isnull(cell_value):
+                    translated_value = translate_text(str(cell_value), dest_lang, src_lang)
+                    df.at[i, col] = translated_value
         output = BytesIO()
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             df.to_excel(writer, index=False)
         translated_file = output.getvalue()
-    elif file.name.endswith('.txt'):
-        text = file.getvalue().decode('utf-8')
-        translated_text = translate_text(text, dest_lang, src_lang)
-        translated_file = translated_text.encode('utf-8')
-    return translated_file, file.name[:-4] + '_translated.xlsx'  # Change the file extension for Excel files
+    return translated_file, file.name[:-5] + '_translated.xlsx'
 
 
 def main():
