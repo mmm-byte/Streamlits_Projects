@@ -1,0 +1,7 @@
+streamlit
+googletrans==4.0.0-rc1
+pandas
+gspread
+oauth2client
+google-auth-httplib2
+google-auth-oauthlib
