@@ -1,16 +1,6 @@
 import streamlit as st
-from googletrans import Translator
-import pandas as pd
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
 
-# Initialize the translator
-translator = Translator()
-
-# Define the questions
+# Define the questions for each language
 questions = {
     "en": ["What is your name?", "How satisfied are you with our service?", "Any additional comments?"],
     "es": ["¿Cuál es tu nombre?", "¿Qué tan satisfecho estás con nuestro servicio?", "¿Algún comentario adicional?"],
@@ -19,8 +9,6 @@ questions = {
 
 # Define the language options
 languages = {"English": "en", "Spanish": "es"}  # Add more languages as needed
-
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # Select language
 selected_language = st.selectbox("Select Language", list(languages.keys()))
@@ -37,24 +25,7 @@ for question in questions[selected_lang_code]:
 
 # Submit button
 if st.button("Submit"):
-    # Google Sheets API setup
-    creds = None
-
-if 'token' not in st.session_state:
-    flow = InstalledAppFlow.from_client_secrets_file("./Feedback_Chatbot/credentials.json", SCOPES)
-    creds = flow.run_local_server(port=0)
-    st.session_state['token'] = creds.to_json()
-else:
-    creds = Credentials.from_authorized_user_info(st.session_state['token'])
-
-
-    # Authenticate and open the Google Sheet
-    client = gspread.authorize(creds)
-    sheet = client.open("Feedback Responses").sheet1
-
-    # Append the new responses
-    sheet.append_row(responses)
-
-    st.success("Thank you for your feedback!")
-
-# Run the app with the command `streamlit run feedback_form.py`
+    # Print the responses
+    st.write("Responses:")
+    for question, response in zip(questions[selected_lang_code], responses):
+        st.write(f"{question}: {response}")
