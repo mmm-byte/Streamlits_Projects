@@ -40,7 +40,7 @@ if st.button("Submit"):
     creds = None
 
     if 'token.json' not in st.session_state:
-        flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+        flow = InstalledAppFlow.from_client_secrets_file(filepath="./Feedback_Chatbot/credentials.json", SCOPES)
         creds = flow.run_local_server(port=0)
         st.session_state['token.json'] = creds.to_json()
     else:
