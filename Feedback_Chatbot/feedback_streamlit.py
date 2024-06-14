@@ -20,6 +20,8 @@ questions = {
 # Define the language options
 languages = {"English": "en", "Spanish": "es"}  # Add more languages as needed
 
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+
 # Select language
 selected_language = st.selectbox("Select Language", list(languages.keys()))
 selected_lang_code = languages[selected_language]
@@ -36,7 +38,6 @@ for question in questions[selected_lang_code]:
 # Submit button
 if st.button("Submit"):
     # Google Sheets API setup
-    SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
     creds = None
 
 if 'token' not in st.session_state:
