@@ -42,9 +42,9 @@ if st.button("Submit"):
     if 'token.json' not in st.session_state:
         flow = InstalledAppFlow.from_client_secrets_file("./Feedback_Chatbot/credentials.json", SCOPES)
         creds = flow.run_local_server(port=0)
-        st.session_state['token.json'] = creds.to_json()
+        st.session_state['./Feedback_Chatbot/token.json'] = creds.to_json()
     else:
-        creds = Credentials.from_authorized_user_info(st.session_state['token.json'])
+        creds = Credentials.from_authorized_user_info(st.session_state['./Feedback_Chatbot/token.json'])
 
     # Authenticate and open the Google Sheet
     client = gspread.authorize(creds)
