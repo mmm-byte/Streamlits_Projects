@@ -1,4 +1,4 @@
 streamlit==1.35.0
-streamlit-gsheets==0.1.0
-pandas==1.4.4
-google-auth==2.6.0
+streamlit-gsheets>=0.1.0
+pandas>=1.4.4
+google-auth>=2.6.0
