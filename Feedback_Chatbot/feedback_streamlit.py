@@ -19,6 +19,8 @@ responses = []
 for question in questions[selected_lang_code]:
     if "?" in question:
         response = st.selectbox(question, ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"])
+    elif "." in question:
+        response = st.selectbox(question, ["Yes", "No"])
     else:
         response = st.text_input(question)
     responses.append(response)
