@@ -1,6 +1,8 @@
-import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+# Streamlit-Google Sheet
+## Modules
+import streamlit as st 
 from pandas import DataFrame
+
 from gspread_pandas import Spread,Client
 from google.oauth2 import service_account
 
@@ -13,10 +15,22 @@ import matplotlib.pyplot as plt
 
 from datetime import datetime
 
-url = "https://docs.google.com/spreadsheets/d/1JDy9md2VZPz4JbYtRPJLs81_3jUK47nx6GYQjgU8qNY/edit?usp=sharing"
+# Disable certificate verification (Not necessary always)
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+# Create a Google Authentication connection object
+scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
+
+credentials = service_account.Credentials.from_service_account_info(
+                st.secrets["gcp_service_account"], scopes = scope)
+client = Client(scope=scope,creds=credentials)
+spreadsheetname = "Database"
+spread = Spread(spreadsheetname,client = client)
 
 # Check the connection
-st.write(url)
+st.write(spread.url)
 
 sh = client.open(spreadsheetname)
 worksheet_list = sh.worksheets()
