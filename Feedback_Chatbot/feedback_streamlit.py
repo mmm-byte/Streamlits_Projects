@@ -29,5 +29,6 @@ for question in questions[selected_lang_code]:
 if st.button("Submit"):
     # Print the responses
     st.write("Responses:")
+    st.write(responses)
     for question, response in zip(questions[selected_lang_code], responses):
         st.write(f"{question}: {response}")
