@@ -8,8 +8,6 @@ url = 'https://docs.google.com/spreadsheets/d/178sSyO5YpLNOVz8XtZJTif6Vc07-K7Nnc
 
 # Initialize GSheetsConnection
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
-    st.write(conn)
-    st.help(conn)
 df = conn.read(spreadsheet=url, usecols=[0, 1])
 st.dataframe(df)
 
