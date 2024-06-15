@@ -8,4 +8,4 @@ google-auth-oauthlib==0.4.6
 google-auth==2.20.0
 google-api-python-client==2.100.0
 pydrive2==1.10.1
-gspread-dataframe==3.4.3
+gspread-dataframe
