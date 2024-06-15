@@ -2,3 +2,4 @@ streamlit>=1.22.0
 pandasql  # this is for examples/ only
 st-gsheets-connection
 pandas
+gspread==5.4.0
