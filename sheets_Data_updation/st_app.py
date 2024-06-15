@@ -21,7 +21,7 @@ if st.button("Submit"):
         df = pd.concat([df, new_row], ignore_index=True)
         
         # Update the Google Sheet with the new data
-        conn.write(spreadsheet=url, dataframe=df)
+        conn.update(spreadsheet=url, dataframe=df)
         st.success("Data added successfully!")
     else:
         st.error("Please enter some data.")
