@@ -2,7 +2,7 @@ import streamlit as st
 
 # Define the questions for each language
 questions = {
-    "en": ["What is your name?", "How satisfied are you with our service?", "Any additional comments?"],
+    "en": ["What is your name?", "This training is relevant to my needs and/or interests?", "I have learnt new skills and/or knowledge through this training?"],
     "es": ["¿Cuál es tu nombre?", "¿Qué tan satisfecho estás con nuestro servicio?", "¿Algún comentario adicional?"],
     # Add more languages as needed
 }
