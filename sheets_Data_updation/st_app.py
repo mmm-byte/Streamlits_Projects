@@ -8,6 +8,8 @@ url = 'https://docs.google.com/spreadsheets/d/178sSyO5YpLNOVz8XtZJTif6Vc07-K7Nnc
 
 # Initialize GSheetsConnection
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+    st.write(conn)
+    st.help(conn)
 df = conn.read(spreadsheet=url, usecols=[0, 1])
 st.dataframe(df)
 
@@ -22,11 +24,10 @@ if st.button("Submit"):
         df = pd.concat([df, new_row], ignore_index=True)
         
         # Update the Google Sheet with the new data
-        gc = gspread.service_account()  # Adjust if using service account credentials
-        sh = gc.open_by_url(url)
-        worksheet = sh.sheet1
-        worksheet.update([df.columns.values.tolist()] + df.values.tolist())
-        
+        conn.create(
+            spreadsheet=url,
+            data=df,
+        )
         st.success("Data added successfully!")
     else:
         st.error("Please enter some data.")
