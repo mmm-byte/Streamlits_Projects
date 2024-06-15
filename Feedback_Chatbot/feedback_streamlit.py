@@ -55,5 +55,5 @@ if st.button("Submit"):
     st.success('Responses submitted successfully!')
 
 # Example usage of the responses list
-st.write("Responses:", responses)
+#st.write("Responses:", responses)
 
