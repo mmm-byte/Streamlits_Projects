@@ -49,6 +49,21 @@ questions = {
     # Add more languages as needed
 }
 
+#Define the answers for each language
+answers = {
+    "en": ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"],
+    "ms":["Sangat Puas Hati", "Puas Hati", "Neutral", "Tidak Puas Hati", "Sangat Tidak Puas Hati"],
+    "id":["Sangat Puas", "Puas", "Netral", "Tidak Puas", "Sangat Tidak Puas"],
+    "hi":["बहुत संतुष्ट", "संतुष्ट", "तटस्थ", "असंतुष्ट", "बहुत असंतुष्ट"],
+}
+#Deine the answers for each language
+answers1 = {
+    "en": ["Yes", "No"],
+    "ms":["Ya","Tidak"],
+    "id":["Ya","Tidak"],
+    "hi":["हां नहीं"],
+}
+
 # Define the language options
 languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi":"hi"}  # Add more languages as needed
 
@@ -60,9 +75,9 @@ selected_lang_code = languages[selected_language]
 responses = []
 for question in questions[selected_lang_code]:
     if "?" in question:
-        response = st.selectbox(question, ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"])
+        response = st.selectbox(question, answers[selected_lang_code])
     elif "." in question:
-        response = st.selectbox(question, ["Yes", "No"])
+        response = st.selectbox(question, answers1[selected_lang_code])
     else:
         response = st.text_input(question)
     responses.append(response)
