@@ -8,6 +8,7 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
+from googletrans import Translator
 from google_trans_new import google_translator
 import gtts
 
@@ -75,7 +76,8 @@ selected_language = st.selectbox("Select Language", list(languages.keys()))
 selected_lang_code = languages[selected_language]
 
 # Translate is defined to google translator
-translator = google_translator()
+#translator = google_translator()
+translator = Translator()
 
 # Display questions in the selected language
 responses = []
@@ -86,7 +88,9 @@ for question in questions[selected_lang_code]:
         response = st.selectbox(question, answers1[selected_lang_code])
     else:
         response = st.text_input(question)
-    responses.append(translator.translate(response,lang_src=selected_lang_code,lang_tgt="en"))
+    translated_response = translator.translate(response, src=selected_lang_code, dest="en").text
+    responses.append(translated_response)
+    #responses.append(translator.translate(response,lang_src=selected_lang_code,lang_tgt="en"))
     #translator.translate(response,lang_src=selected_lang_code,lang_tgt="en")
 
 # Submit button
