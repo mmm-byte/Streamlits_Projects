@@ -8,7 +8,17 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
+import streamlit as st
 
+# Adding a star button with emoji
+if st.button('⭐ Star this Repo'):
+    st.write("Thank you for starring!")
+
+# Adding a GitHub repository button with emoji
+if st.button('🔗 GitHub Repository'):
+    st.write("Opening GitHub Repository...")
+    st.markdown('[GitHub Repository](https://github.com/your-repo)')
+    
 st.title("Volunteer Feedback Survey")
 
 # Add a header for the section with questions
