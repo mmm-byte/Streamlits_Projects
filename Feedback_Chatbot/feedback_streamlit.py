@@ -70,7 +70,7 @@ for question in questions[selected_lang_code]:
 # Submit button
 if st.button("Submit"):
     if google_credentials:
-        st.write(google_credentials)
+        #st.write(google_credentials)
         #credentials = json.loads(google_credentials)
         #st.write(credentials)
     
