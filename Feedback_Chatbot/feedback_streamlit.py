@@ -1,8 +1,11 @@
 import streamlit as st
 import pandas as pd
 import gspread
+import os
+import json
 from gspread_dataframe import set_with_dataframe
 from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 
@@ -10,6 +13,9 @@ st.title("Volunteer Feedback Survey")
 
 # Add a header for the section with questions
 st.header("Please provide your responses to the following questions")
+
+# Load the credentials from environment variable
+google_credentials = os.getenv('GOOGLE_CREDENTIALS')
 
 # Define the questions for each language
 questions = {
@@ -38,11 +44,16 @@ for question in questions[selected_lang_code]:
 
 # Submit button
 if st.button("Submit"):
+    if google_credentials:
+    credentials = json.loads(google_credentials)
+    
     scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
-    credentials = Credentials.from_service_account_file('./Feedback_Chatbot/credentials.json', scopes=scopes)
+
+    credentials = Credentials.from_service_account_info(credentials, scopes=scopes)
     gc = gspread.authorize(credentials)
     gauth = GoogleAuth()
+    gauth.credentials = credentials
     drive = GoogleDrive(gauth)
     
     # open a google sheet
