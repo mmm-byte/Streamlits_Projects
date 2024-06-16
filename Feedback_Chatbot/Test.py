@@ -1,15 +1,49 @@
 import streamlit as st
 import pandas as pd
 import gspread
+import os
+import json
 from gspread_dataframe import set_with_dataframe
 from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
+import streamlit as st
 
+import streamlit as st
+
+import streamlit as st
+
+# Load Font Awesome CSS
+st.markdown('<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">', unsafe_allow_html=True)
+
+# Add GitHub icon as a link
+st.markdown("""
+    <style>
+    .icon {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+    .icon-link {
+        text-decoration: none;
+        color: black;
+    }
+    </style>
+    <a class="icon-link" href="https://github.com/mmm-byte/Streamlits_Projects.git" target="_blank">
+        <i class="fab fa-github icon"></i>
+    </a>
+    <a class="icon-link" href="https://github.com/mmm-byte/Streamlits_Projects/stargazers" target="_blank">
+        <i class="far fa-star icon"></i>
+    </a>
+""", unsafe_allow_html=True)
+    
 st.title("Volunteer Feedback Survey")
 
 # Add a header for the section with questions
 st.header("Please provide your responses to the following questions")
+
+# Load the credentials from environment variable
+google_credentials = st.secrets["GOOGLE_CREDENTIALS"] 
 
 # Define the questions for each language
 questions = {
@@ -38,26 +72,46 @@ for question in questions[selected_lang_code]:
 
 # Submit button
 if st.button("Submit"):
-    scopes = ['https://www.googleapis.com/auth/spreadsheets',
+    if google_credentials:
+        st.write(google_credentials)
+        #credentials = json.loads(google_credentials)
+        #st.write(credentials)
+    
+        scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
-    credentials = Credentials.from_service_account_file('./Feedback_Chatbot/credentials.json', scopes=scopes)
-    gc = gspread.authorize(credentials)
-    gauth = GoogleAuth()
-    drive = GoogleDrive(gauth)
-    
-    # open a google sheet
-    gs = gc.open_by_url('https://docs.google.com/spreadsheets/d/178sSyO5YpLNOVz8XtZJTif6Vc07-K7Nncjp56TB3qb8/edit?usp=sharing')
-    
-    # select a work sheet from its name
-    worksheet1 = gs.worksheet('Sheet1')
 
-    # Find the next empty row
-    next_empty_row = len(worksheet1.col_values(1)) + 1
+        credentials = Credentials.from_service_account_info(google_credentials, scopes=scopes)
+        gc = gspread.authorize(credentials)
+        gauth = GoogleAuth()
+        gauth.credentials = credentials
+        drive = GoogleDrive(gauth)
     
-    # Append the responses to the next empty row
-    worksheet1.insert_row(responses, next_empty_row)
+        # open a google sheet
+        gs = gc.open_by_url('https://docs.google.com/spreadsheets/d/178sSyO5YpLNOVz8XtZJTif6Vc07-K7Nncjp56TB3qb8/edit?usp=sharing')
     
-    st.success('Responses submitted successfully!')
+        # select a work sheet from its name
+        worksheet1 = gs.worksheet('Sheet1')
+
+        # Find the next empty row
+        next_empty_row = len(worksheet1.col_values(1)) + 1
+    
+        # Append the responses to the next empty row
+        worksheet1.insert_row(responses, next_empty_row)
+    
+        st.success('Responses submitted successfully!')
+    else:
+        st.error("Google credentials not found in environment variables")
 
 # Example usage of the responses list
 #st.write("Responses:", responses)
+
+footer = """
+<div style="text-align: center; font-size: medium; margin-top:50px;">
+    If you find BrainGazer useful or interesting, please consider starring it on GitHub.
+    <hr>
+    <a href="https://github.com/mmm-byte/Streamlits_Projects.git" target="_blank">
+    <img src="https://img.shields.io/github/stars/SaiJeevanPuchakayala/BrainGazer.svg?style=social" alt="GitHub stars">
+  </a>
+</div>
+"""
+st.markdown(footer, unsafe_allow_html=True)
