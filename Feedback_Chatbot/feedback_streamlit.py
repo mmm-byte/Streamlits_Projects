@@ -77,3 +77,12 @@ if st.button("Submit"):
 # Example usage of the responses list
 #st.write("Responses:", responses)
 
+footer = """
+<div style="text-align: center; font-size: medium; margin-top:50px;">
+    If you find BrainGazer useful or interesting, please consider starring it on GitHub.
+    <hr>
+    <a href="https://github.com/SaiJeevanPuchakayala/BrainGazer" target="_blank">
+    <img src="https://img.shields.io/github/stars/SaiJeevanPuchakayala/BrainGazer.svg?style=social" alt="GitHub stars">
+  </a>
+</div>
+"""
