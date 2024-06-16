@@ -8,11 +8,6 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
-import streamlit as st
-
-import streamlit as st
-
-import streamlit as st
 
 # Load Font Awesome CSS
 st.markdown('<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">', unsafe_allow_html=True)
@@ -53,7 +48,7 @@ questions = {
 }
 
 # Define the language options
-languages = {"English": "en", "Spanish": "es"}  # Add more languages as needed
+languages = {"English": "en", "Malay": "ms"}  # Add more languages as needed
 
 # Select language
 selected_language = st.selectbox("Select Language", list(languages.keys()))
