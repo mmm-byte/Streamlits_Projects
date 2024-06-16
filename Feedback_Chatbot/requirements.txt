@@ -11,3 +11,4 @@ pydrive2
 gspread-dataframe
 transformers
 torch
+sentencepiece
