@@ -15,7 +15,7 @@ st.title("Volunteer Feedback Survey")
 st.header("Please provide your responses to the following questions")
 
 # Load the credentials from environment variable
-google_credentials = os.getenv('GOOGLE_CREDENTIALS')
+google_credentials = st.secrets["GOOGLE_CREDENTIALS"] 
 
 # Define the questions for each language
 questions = {
