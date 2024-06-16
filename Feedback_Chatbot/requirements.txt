@@ -9,6 +9,5 @@ google-auth
 google-api-python-client
 pydrive2
 gspread-dataframe
-transformers
-torch
-sentencepiece
+google-trans-new
+gtts
