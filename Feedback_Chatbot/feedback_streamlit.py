@@ -50,7 +50,7 @@ questions = {
 }
 
 # Define the language options
-languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi";"hi"}  # Add more languages as needed
+languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi":"hi"}  # Add more languages as needed
 
 # Select language
 selected_language = st.selectbox("Select Language", list(languages.keys()))
