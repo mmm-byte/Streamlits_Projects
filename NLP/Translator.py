@@ -1,60 +1,27 @@
 import streamlit as st
-import pandas as pd
-from googletrans import Translator
-import base64
-from io import BytesIO
+from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
-# Function to detect language
-def detect_language(text):
-    translator = Translator()
-    return translator.detect(text).lang
+# Load the model and tokenizer
+model_name = "facebook/m2m100_418M"
+tokenizer = M2M100Tokenizer.from_pretrained(model_name)
+model = M2M100ForConditionalGeneration.from_pretrained(model_name)
 
-# Function to translate text
-def translate_text(text, dest_lang, src_lang):
-    translator = Translator()
-    return translator.translate(text, dest=dest_lang, src=src_lang).text
+# Streamlit app
+st.title("Language Translation with M2M100")
 
-def translate_file(file, dest_lang, src_lang):
-    translated_file = None
-    if file.name.endswith('.xlsx'):
-        # Read the Excel file without specifying encoding
-        df = pd.read_excel(file, engine='openpyxl')
-        for col in df.columns:
-            for i, cell_value in enumerate(df[col]):
-                if not pd.isnull(cell_value):
-                    translated_value = translate_text(str(cell_value), dest_lang, src_lang)
-                    df.at[i, col] = translated_value
-        output = BytesIO()
-        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-            df.to_excel(writer, index=False)
-        translated_file = output.getvalue()
-    return translated_file, file.name[:-5] + '_translated.xlsx'  # Change the file extension for Excel files
+# User input
+source_text = st.text_area("Enter text to translate:")
+source_lang = st.text_input("Enter source language code (e.g., en for English):")
+target_lang = st.text_input("Enter target language code (e.g., hi for Hindi):")
 
-
-
-
-def main():
-    st.title("Language Translator")
-
-    # Input options
-    input_type = st.radio("Select input type:", ("Text", "Upload File"))
-
-    # Get user input
-    if input_type == "Text":
-        # Your existing text translation code here
-        pass
-
-    elif input_type == "Upload File":
-        file = st.file_uploader("Upload a file:", type=['xlsx', 'txt'])
-        if file is not None:
-            src_lang = st.selectbox("Select input language:", ["Auto", "English", "French", "Spanish", "Chinese", "Japanese"])  # Add more languages as needed
-            dest_lang = st.selectbox("Select output language:", ["English", "French", "Spanish", "Chinese", "Japanese"])  # Add more languages as needed
-            if st.button("Translate"):
-                if src_lang == "Auto":
-                    text = file.getvalue().decode('utf-8')
-                    src_lang = detect_language(text)
-                translated_file, filename = translate_file(file, dest_lang.lower(), src_lang.lower())
-                st.download_button(label="Download Translated File", data=translated_file, file_name=filename, mime="application/octet-stream")
-
-if __name__ == "__main__":
-    main()
+# Translation
+if st.button("Translate"):
+    if source_text and source_lang and target_lang:
+        tokenizer.src_lang = source_lang
+        encoded_text = tokenizer(source_text, return_tensors="pt")
+        generated_tokens = model.generate(**encoded_text, forced_bos_token_id=tokenizer.get_lang_id(target_lang))
+        translated_text = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
+        st.write("Translated text:")
+        st.write(translated_text)
+    else:
+        st.write("Please provide text and language codes for translation.")
