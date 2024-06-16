@@ -46,13 +46,13 @@ for question in questions[selected_lang_code]:
 if st.button("Submit"):
     if google_credentials:
         st.write(google_credentials)
-        credentials = json.loads(google_credentials)
-        st.write(credentials)
+        #credentials = json.loads(google_credentials)
+        #st.write(credentials)
     
         scopes = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
 
-        credentials = Credentials.from_service_account_info(credentials, scopes=scopes)
+        credentials = Credentials.from_service_account_info(google_credentials, scopes=scopes)
         gc = gspread.authorize(credentials)
         gauth = GoogleAuth()
         gauth.credentials = credentials
