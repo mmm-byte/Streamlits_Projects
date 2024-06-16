@@ -81,7 +81,7 @@ footer = """
 <div style="text-align: center; font-size: medium; margin-top:50px;">
     If you find BrainGazer useful or interesting, please consider starring it on GitHub.
     <hr>
-    <a href="https://github.com/SaiJeevanPuchakayala/BrainGazer" target="_blank">
+    <a href="https://github.com/mmm-byte/Streamlits_Projects/tree/921c10166afbeba0d031fc2f0d9208d0cf7586a3/Feedback_Chatbot" target="_blank">
     <img src="https://img.shields.io/github/stars/SaiJeevanPuchakayala/BrainGazer.svg?style=social" alt="GitHub stars">
   </a>
 </div>
