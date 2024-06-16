@@ -29,10 +29,10 @@ st.markdown("""
         color: black;
     }
     </style>
-    <a class="icon-link" href="https://github.com/your-repo" target="_blank">
+    <a class="icon-link" href="https://github.com/mmm-byte/Streamlits_Projects.git" target="_blank">
         <i class="fab fa-github icon"></i>
     </a>
-    <a class="icon-link" href="https://github.com/your-repo/stargazers" target="_blank">
+    <a class="icon-link" href="https://github.com/mmm-byte/Streamlits_Projects.git/stargazers" target="_blank">
         <i class="far fa-star icon"></i>
     </a>
 """, unsafe_allow_html=True)
