@@ -9,6 +9,23 @@ from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 
+st.markdown("""
+    <style>
+    .icon {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+    </style>
+    <div>
+        <span class="icon">⭐</span>
+        <a href="https://github.com/your-repo" target="_blank">GitHub Repository</a>
+    </div>
+    <div>
+        <span class="icon">🌟</span>
+        <a href="https://github.com/your-repo/stargazers" target="_blank">Star this Repo</a>
+    </div>
+""", unsafe_allow_html=True)
+
 st.title("Volunteer Feedback Survey")
 
 # Add a header for the section with questions
