@@ -12,36 +12,30 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 # Load Font Awesome CSS
 st.markdown('<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">', unsafe_allow_html=True)
 
-# Add GitHub icon and link
+# Add GitHub icon as a link
 st.markdown("""
     <style>
     .icon {
         font-size: 24px;
         margin-right: 10px;
     }
+    .icon-link {
+        text-decoration: none;
+        color: black;
+    }
     </style>
-    <div>
-        <i class="fab fa-github icon" href="https://github.com/mmm-byte/Streamlits_Projects.git" target="_blank"></i>
-        
-    </div>
-    <div>
+    <a class="icon-link" href="https://github.com/your-repo" target="_blank">
+        <i class="fab fa-github icon"></i>
+    </a>
+    <a class="icon-link" href="https://github.com/your-repo/stargazers" target="_blank">
         <i class="far fa-star icon"></i>
-        <a href="https://github.com/your-repo/stargazers" target="_blank">Star this Repo</a>
-    </div>
+    </a>
 """, unsafe_allow_html=True)
-
-
-# Adding a star button with emoji
-if st.button('⭐ Star this Repo'):
-    st.write("Thank you for starring!")
-
-# Adding a GitHub repository button with emoji
-if st.button('🔗 GitHub Repository'):
-    st.write("Opening GitHub Repository...")
-    st.markdown('[GitHub Repository](https://github.com/your-repo)')
     
 st.title("Volunteer Feedback Survey")
 
