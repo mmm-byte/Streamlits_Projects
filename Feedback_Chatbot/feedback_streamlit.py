@@ -24,8 +24,8 @@ st.markdown("""
     }
     </style>
     <div>
-        <i class="fab fa-github icon"></i>
-        <a href="https://github.com/your-repo" target="_blank">GitHub Repository</a>
+        <i class="fab fa-github icon"><a href="https://github.com/your-repo" target="_blank"></a></i>
+        
     </div>
     <div>
         <i class="far fa-star icon"></i>
