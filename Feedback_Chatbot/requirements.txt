@@ -11,3 +11,4 @@ pydrive2
 gspread-dataframe
 google-trans-new
 gtts
+googletrans
