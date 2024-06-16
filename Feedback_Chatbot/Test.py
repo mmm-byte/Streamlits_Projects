@@ -1,4 +1,15 @@
 import streamlit as st
+import pandas as pd
+import gspread
+from gspread_dataframe import set_with_dataframe
+from google.oauth2.service_account import Credentials
+from pydrive2.auth import GoogleAuth
+from pydrive2.drive import GoogleDrive
+
+st.title("Volunteer Feedback Survey")
+
+# Add a header for the section with questions
+st.header("Please provide your responses to the following questions")
 
 # Define the questions for each language
 questions = {
@@ -19,13 +30,34 @@ responses = []
 for question in questions[selected_lang_code]:
     if "?" in question:
         response = st.selectbox(question, ["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"])
+    elif "." in question:
+        response = st.selectbox(question, ["Yes", "No"])
     else:
         response = st.text_input(question)
     responses.append(response)
 
 # Submit button
 if st.button("Submit"):
-    # Print the responses
-    st.write("Responses:")
-    for question, response in zip(questions[selected_lang_code], responses):
-        st.write(f"{question}: {response}")
+    scopes = ['https://www.googleapis.com/auth/spreadsheets',
+          'https://www.googleapis.com/auth/drive']
+    credentials = Credentials.from_service_account_file('./Feedback_Chatbot/credentials.json', scopes=scopes)
+    gc = gspread.authorize(credentials)
+    gauth = GoogleAuth()
+    drive = GoogleDrive(gauth)
+    
+    # open a google sheet
+    gs = gc.open_by_url('https://docs.google.com/spreadsheets/d/178sSyO5YpLNOVz8XtZJTif6Vc07-K7Nncjp56TB3qb8/edit?usp=sharing')
+    
+    # select a work sheet from its name
+    worksheet1 = gs.worksheet('Sheet1')
+
+    # Find the next empty row
+    next_empty_row = len(worksheet1.col_values(1)) + 1
+    
+    # Append the responses to the next empty row
+    worksheet1.insert_row(responses, next_empty_row)
+    
+    st.success('Responses submitted successfully!')
+
+# Example usage of the responses list
+#st.write("Responses:", responses)
