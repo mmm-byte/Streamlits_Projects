@@ -69,6 +69,8 @@ if st.button("Submit"):
         worksheet1.insert_row(responses, next_empty_row)
     
         st.success('Responses submitted successfully!')
+    else:
+        st.error("Google credentials not found in environment variables")
 
 # Example usage of the responses list
 #st.write("Responses:", responses)
