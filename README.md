@@ -23,39 +23,7 @@ You can install the necessary Python packages using the `requirements.txt` file:
 
 ```bash
 pip install -r requirements.txt
-
-# Streamlit Project
-
-This repository contains all the necessary files to deploy a Streamlit application. This project securely handles Google credentials using Streamlit's secrets management system to interact with Google Sheets and Google Drive.
-
-## Overview
-
-This Streamlit application allows users to submit responses that are stored in a Google Sheet. The app is deployed on Streamlit Cloud, and Google credentials are securely managed using the Streamlit secrets management system.
-
-## Files
-
-- `main.py`: The main Streamlit application file.
-- `.streamlit/secrets.toml`: Contains the Google credentials in TOML format.
-
-## Prerequisites
-
-Ensure you have the following installed:
-
-- Python 3.7 or higher
-- Streamlit
-- Google API Client Libraries (`google-auth`, `google-auth-oauthlib`, `google-auth-httplib2`, `gspread`, `pydrive`)
-
-You can install the necessary Python packages using the `requirements.txt` file:
-
-```bash
-pip install -r requirements.txt
-
-Sure, here's the README file with just the setup process included:
-
-```markdown
-# Streamlit Project
-
-This repository contains all the necessary files to deploy a Streamlit application. This project securely handles Google credentials using Streamlit's secrets management system to interact with Google Sheets and Google Drive.
+```
 
 ## Setup
 
@@ -64,7 +32,7 @@ This repository contains all the necessary files to deploy a Streamlit applicati
 Clone the repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/your-username/your-repository.git
+git clone https://github.com/mmm-byte/Streamlits_Projects/tree/3c13a1bbdee8000a18e7af1e64cd65a9fd2f90b5/Feedback_Chatbot
 cd your-repository
 ```
 
@@ -78,14 +46,6 @@ Example `secrets.toml`:
 [GOOGLE_CREDENTIALS]
 type = "service_account"
 project_id = "your-project-id"
-private_key_id = "your-private-key-id"
-private_key = "-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY\n-----END PRIVATE KEY-----\n"
-client_email = "your-client-email@your-project.iam.gserviceaccount.com"
-client_id = "your-client-id"
-auth_uri = "https://accounts.google.com/o/oauth2/auth"
-token_uri = "https://oauth2.googleapis.com/token"
-auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-client_x509_cert_url = "https://www.googleapis.com/robot/v1/metadata/x509/your-client-email%40your-project.iam.gserviceaccount.com"
 ```
 
 ### 3. Deploying on Streamlit Cloud
@@ -110,14 +70,6 @@ If you want to run the app locally for testing purposes, follow these steps:
 export GOOGLE_CREDENTIALS='{
   "type": "service_account",
   "project_id": "your-project-id",
-  "private_key_id": "your-private-key-id",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY\n-----END PRIVATE KEY-----\n",
-  "client_email": "your-client-email@your-project.iam.gserviceaccount.com",
-  "client_id": "your-client-id",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/your-client-email%40your-project.iam.gserviceaccount.com"
 }'
 ```
 
@@ -125,7 +77,6 @@ export GOOGLE_CREDENTIALS='{
 
 ```bash
 streamlit run main.py
-```
 ```
 
 This README file provides a clear and concise setup process for your Streamlit application.
