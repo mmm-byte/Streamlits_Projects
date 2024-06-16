@@ -8,7 +8,8 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
-from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
+from google_trans_new import google_translator
+import gtts
 
 # Load Font Awesome CSS
 st.markdown('<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">', unsafe_allow_html=True)
@@ -73,18 +74,8 @@ languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi":"hi"}  # A
 selected_language = st.selectbox("Select Language", list(languages.keys()))
 selected_lang_code = languages[selected_language]
 
-# Load the model and tokenizer
-model_name = "facebook/m2m100_418M"
-tokenizer = M2M100Tokenizer.from_pretrained(model_name)
-model = M2M100ForConditionalGeneration.from_pretrained(model_name)
-
-# Function to translate text
-def translate(text, src_lang, tgt_lang, model, tokenizer):
-    tokenizer.src_lang = src_lang
-    encoded_text = tokenizer(text, return_tensors="pt")
-    generated_tokens = model.generate(**encoded_text, forced_bos_token_id=tokenizer.get_lang_id(tgt_lang))
-    translation = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
-    return translation
+# Translate is defined to google translator
+translator = google_translator()
 
 # Display questions in the selected language
 responses = []
@@ -95,7 +86,8 @@ for question in questions[selected_lang_code]:
         response = st.selectbox(question, answers1[selected_lang_code])
     else:
         response = st.text_input(question)
-    responses.append(response)
+    responses.append(translator.translate(response,lang_src=selected_lang_code,lang_tgt="en"))
+    #translator.translate(response,lang_src=selected_lang_code,lang_tgt="en")
 
 # Submit button
 if st.button("Submit"):
