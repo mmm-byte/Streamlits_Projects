@@ -10,6 +10,30 @@ from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 import streamlit as st
 
+import streamlit as st
+
+# Load Font Awesome CSS
+st.markdown('<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">', unsafe_allow_html=True)
+
+# Add GitHub icon and link
+st.markdown("""
+    <style>
+    .icon {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+    </style>
+    <div>
+        <i class="fab fa-github icon"></i>
+        <a href="https://github.com/your-repo" target="_blank">GitHub Repository</a>
+    </div>
+    <div>
+        <i class="far fa-star icon"></i>
+        <a href="https://github.com/your-repo/stargazers" target="_blank">Star this Repo</a>
+    </div>
+""", unsafe_allow_html=True)
+
+
 # Adding a star button with emoji
 if st.button('⭐ Star this Repo'):
     st.write("Thank you for starring!")
