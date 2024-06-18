@@ -123,11 +123,11 @@ if st.button("Submit"):
 
         # Find the next empty row
         next_empty_row = len(worksheet1.col_values(1)) + 1
-        next_empty_row = len(worksheet2.col_values(1)) + 1
+        next_empty_row_org = len(worksheet2.col_values(1)) + 1
     
         # Append the responses to the next empty row
         worksheet1.insert_row(responses, next_empty_row)
-        worksheet2.insert_row(responses_original, next_empty_row)
+        worksheet2.insert_row(responses_original, next_empty_row_org)
     
         st.success('Responses submitted successfully!')
     else:
