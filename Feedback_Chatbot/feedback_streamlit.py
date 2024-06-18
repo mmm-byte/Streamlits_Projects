@@ -86,8 +86,8 @@ for question in questions[selected_lang_code]:
         response = st.selectbox(question, answers1[selected_lang_code])
     else:
         response = st.text_input(question)
-    translated_response = translator.translate(response, src=selected_lang_code, dest="en").text
-    responses.append(translated_response)
+    #translated_response = translator.translate(response, src=selected_lang_code, dest="en").text
+    responses.append(response)
     #responses.append(translator.translate(response,lang_src=selected_lang_code,lang_tgt="en"))
     #translator.translate(response,lang_src=selected_lang_code,lang_tgt="en")
 
