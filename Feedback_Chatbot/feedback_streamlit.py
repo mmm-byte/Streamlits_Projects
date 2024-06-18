@@ -75,7 +75,7 @@ selected_lang_code = languages[selected_language]
 
 # Translate is defined to google translator
 #translator = google_translator()
-translator = Translator()
+trans = Translator()
 
 # Display questions in the selected language
 responses = []
@@ -86,8 +86,9 @@ for question in questions[selected_lang_code]:
         response = st.selectbox(question, answers1[selected_lang_code])
     else:
         response = st.text_input(question)
+    translated = trans.translate(response)
     #translated_response = translator.translate(response, src=selected_lang_code, dest="en").text
-    responses.append(response)
+    responses.append(translated)
     #responses.append(translator.translate(response,lang_src=selected_lang_code,lang_tgt="en"))
     #translator.translate(response,lang_src=selected_lang_code,lang_tgt="en")
 
