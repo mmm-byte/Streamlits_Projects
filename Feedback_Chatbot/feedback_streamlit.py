@@ -119,7 +119,7 @@ if st.button("Submit"):
     
         # select a work sheet from its name
         worksheet1 = gs.worksheet('Sheet1')
-        worksheet1 = gs.worksheet('Sheet2')
+        worksheet2 = gs.worksheet('Sheet2')
 
         # Find the next empty row
         next_empty_row = len(worksheet1.col_values(1)) + 1
