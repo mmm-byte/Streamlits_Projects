@@ -9,8 +9,6 @@ from googleapiclient.discovery import build
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 from googletrans import Translator
-from google_trans_new import google_translator
-import gtts
 
 # Load Font Awesome CSS
 st.markdown('<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">', unsafe_allow_html=True)
