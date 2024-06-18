@@ -63,7 +63,7 @@ answers1 = {
     "en": ["Yes", "No"],
     "ms":["Ya","Tidak"],
     "id":["Ya","Tidak"],
-    "hi":["हां नहीं"],
+    "hi":["हां", "नहीं"],
 }
 
 # Define the language options
