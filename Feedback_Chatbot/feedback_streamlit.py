@@ -90,7 +90,7 @@ for question in questions[selected_lang_code]:
     # Check if the response is empty
     if response:
         print("here")
-        translated = trans.translate(response, dest=selected_lang_code).text
+        translated = trans.translate(response).text
         responses.append(translated)
     else:
         print("not here")
