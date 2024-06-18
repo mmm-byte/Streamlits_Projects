@@ -74,11 +74,11 @@ selected_language = st.selectbox("Select Language", list(languages.keys()))
 selected_lang_code = languages[selected_language]
 
 # Translate is defined to google translator
-#translator = google_translator()
 trans = Translator()
 
 # Display questions in the selected language
 responses = []
+responses_original = []
 for question in questions[selected_lang_code]:
     if "?" in question:
         response = st.selectbox(question, answers[selected_lang_code])
@@ -88,6 +88,7 @@ for question in questions[selected_lang_code]:
         response = st.text_input(question)
 
     # Check if the response is empty
+    responses_original.append(response)
     if response:
         print("here")
         translated = trans.translate(response).text
@@ -96,11 +97,6 @@ for question in questions[selected_lang_code]:
         print("not here")
         responses.append(response)
     
-    #translated = trans.translate(response)
-    #responses.append(translated)
-    #translated_response = translator.translate(response, src=selected_lang_code, dest="en").text
-    #responses.append(translator.translate(response,lang_src=selected_lang_code,lang_tgt="en"))
-    #translator.translate(response,lang_src=selected_lang_code,lang_tgt="en")
 
 # Submit button
 if st.button("Submit"):
@@ -123,12 +119,15 @@ if st.button("Submit"):
     
         # select a work sheet from its name
         worksheet1 = gs.worksheet('Sheet1')
+        worksheet1 = gs.worksheet('Sheet2')
 
         # Find the next empty row
         next_empty_row = len(worksheet1.col_values(1)) + 1
+        next_empty_row = len(worksheet2.col_values(1)) + 1
     
         # Append the responses to the next empty row
         worksheet1.insert_row(responses, next_empty_row)
+        worksheet2.insert_row(responses_original, next_empty_row)
     
         st.success('Responses submitted successfully!')
     else:
