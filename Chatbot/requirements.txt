@@ -1,4 +1,3 @@
-Python
-Streamlit
-OpenAI Python SDK
-TOML library
+openai
+streamlit
+pandas
