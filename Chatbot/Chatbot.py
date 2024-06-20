@@ -1,50 +1,69 @@
-import streamlit as st
 import openai
-from streamlit_chat import message
+import streamlit as st
+import pandas as pd
 
-openai.api_key = ""
+# Set your OpenAI API key
+openai.api_key = 'sk-personal2-6toXk76rHSkvkBuZzhvJT3BlbkFJgXw8BOhQhlQBCseZhYlV'
 
-def api_calling(prompt):
-	completions = openai.Completion.create(
-		engine="text-davinci-003",
-		prompt=prompt,
-		max_tokens=1024,
-		n=1,
-		stop=None,
-		temperature=0.5,
-	)
-	message = completions.choices[0].text
-	return message
+# Initialize session state for storing feedback
+if 'feedback' not in st.session_state:
+    st.session_state['feedback'] = []
 
-st.title("ChatGPT ChatBot With Streamlit and OpenAI")
-if 'user_input' not in st.session_state:
-	st.session_state['user_input'] = []
+# Function to generate chatbot response
+def generate_response(user_input):
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=user_input,
+        max_tokens=150
+    )
+    message = response.choices[0].text.strip()
+    return message
 
-if 'openai_response' not in st.session_state:
-	st.session_state['openai_response'] = []
+# Function to collect feedback
+def collect_feedback(questions):
+    responses = []
+    for question in questions:
+        response = st.text_input(question)
+        if response:
+            responses.append(response)
+    return responses
 
-def get_text():
-	input_text = st.text_input("write here", key="input")
-	return input_text
+# Main chatbot interaction
+def chatbot():
+    st.title("Feedback Chatbot")
+    st.write("Welcome! Please interact with the chatbot and provide your feedback.")
 
-user_input = get_text()
+    user_input = st.text_input("You:", "")
+    if user_input:
+        response = generate_response(user_input)
+        st.session_state['feedback'].append({'user': user_input, 'bot': response})
+        st.write("Bot:", response)
 
-if user_input:
-	output = api_calling(user_input)
-	output = output.lstrip("\n")
+    # Display previous conversation
+    st.write("Conversation History:")
+    for convo in st.session_state['feedback']:
+        st.write(f"You: {convo['user']}")
+        st.write(f"Bot: {convo['bot']}")
 
-	# Store the output
-	st.session_state.openai_response.append(user_input)
-	st.session_state.user_input.append(output)
+    st.write("Please provide your feedback:")
+    feedback_questions = [
+        "How do you rate your experience?",
+        "Any suggestions for improvement?",
+        "Would you recommend this chatbot to others?"
+    ]
+    feedback_responses = collect_feedback(feedback_questions)
 
-message_history = st.empty()
+    if st.button("Submit Feedback"):
+        for question, response in zip(feedback_questions, feedback_responses):
+            st.session_state['feedback'].append({'question': question, 'response': response})
+        st.write("Thank you for your feedback!")
 
-if st.session_state['user_input']:
-	for i in range(len(st.session_state['user_input']) - 1, -1, -1):
-		# This function displays user input
-		message(st.session_state["user_input"][i], 
-				key=str(i),avatar_style="icons")
-		# This function displays OpenAI response
-		message(st.session_state['openai_response'][i], 
-				avatar_style="miniavs",is_user=True,
-				key=str(i) + 'data_by_user')
+    # Option to download feedback as CSV
+    if st.button("Download Feedback"):
+        df = pd.DataFrame(st.session_state['feedback'])
+        df.to_csv('feedback.csv', index=False)
+        st.write("Feedback saved to feedback.csv")
+
+# Run the chatbot function
+if __name__ == "__main__":
+    chatbot()
