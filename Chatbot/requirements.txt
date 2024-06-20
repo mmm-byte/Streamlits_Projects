@@ -1,3 +1,4 @@
-streamlit
-openai
-streamlit-chat
+Python
+Streamlit
+OpenAI Python SDK
+TOML library
