@@ -1,6 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 
+st.title('Welcome to SIF Feedback Chatbot')
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
