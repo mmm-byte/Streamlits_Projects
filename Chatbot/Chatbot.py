@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 #Secret value
 api_credentials = st.secrets['my_api_key']
-st.write(api_credentials)
+#st.write(api_credentials)
 #Title
 st.title('Welcome to SIF Feedback Chatbot')
 
