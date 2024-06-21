@@ -1,14 +1,20 @@
 import streamlit as st
 import google.generativeai as genai
+import toml
 
+# Load the TOML file
+config = toml.load('config.toml')
+
+#Title
 st.title('Welcome to SIF Feedback Chatbot')
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
-genai.configure(api_key="AIzaSyAQaD147XtW0Yr9ZQlgRhe6bBRsIHsEAeE")
+genai.configure(api_key="config['api']['key']")
 # for m in genai.list_models():
 #   if 'generateContent' in m.supported_generation_methods:
 #     print(m.name)
