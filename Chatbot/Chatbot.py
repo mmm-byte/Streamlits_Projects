@@ -1,12 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
-import gspread
-from gspread_dataframe import set_with_dataframe
-from google.oauth2.service_account import Credentials
-from googleapiclient.discovery import build
-from pydrive2.auth import GoogleAuth
-from pydrive2.drive import GoogleDrive
-from googletrans import Translator
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
