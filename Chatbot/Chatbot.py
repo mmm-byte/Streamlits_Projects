@@ -1,6 +1,5 @@
 import streamlit as st
 import google.generativeai as genai
-import streamlit as st
 import gspread
 from gspread_dataframe import set_with_dataframe
 from google.oauth2.service_account import Credentials
