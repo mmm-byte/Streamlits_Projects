@@ -29,14 +29,18 @@ class FeedbackChatbot:
     def run(self):
         st.write(self.greet())
         for question in self.questions:
+            st.text(question["question"])
             if question["type"] == "yesno" or question["type"] == "rating":
-                user_input = st.selectbox(self.ask_question(question["question"]), question["options"], key=question["question"])
+                for option in question["options"]:
+                    if st.button(option):
+                        response = self.receive_feedback(option, question["type"])
+                        st.write(response)
+                        break
             elif question["type"] == "string":
-                user_input = st.text_area(self.ask_question(question["question"]), key=question["question"])
-
-            if user_input:
-                response = self.receive_feedback(user_input, question["type"])
-                st.write(response)
+                user_input = st.text_input("", key=question["question"])
+                if st.button("Submit"):
+                    response = self.receive_feedback(user_input, question["type"])
+                    st.write(response)
         
         st.write(self.thank_you())
 
