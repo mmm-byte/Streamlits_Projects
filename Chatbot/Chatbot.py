@@ -13,7 +13,7 @@ if "messages" not in st.session_state:
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
-genai.configure(api_key="api_credentials")
+genai.configure(api_key=api_credentials)
 # for m in genai.list_models():
 #   if 'generateContent' in m.supported_generation_methods:
 #     print(m.name)
