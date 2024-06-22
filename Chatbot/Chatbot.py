@@ -94,6 +94,9 @@ selected_lang_code = languages[selected_language]
 # Translate is defined to google translator
 trans = Translator()
 
+#Original response of the user
+responses_original = []
+
 # Initialize session state
 if "current_question" not in st.session_state:
     st.session_state.current_question = 0
