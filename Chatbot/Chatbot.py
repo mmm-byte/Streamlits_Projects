@@ -7,8 +7,8 @@ st.title('Welcome to SIF Feedback Chatbot')
 questions = {
     "en": [
         "How are you doing?",
-        "Is the feedback nice?",
-        "Anything to add?"
+        "Is the feedback nice.",
+        "Anything to add"
     ]
 }
 
