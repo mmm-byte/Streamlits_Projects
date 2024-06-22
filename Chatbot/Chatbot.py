@@ -25,7 +25,7 @@ if "messages" not in st.session_state:
 options = ["Red", "Blue", "Green", "Yellow"]
 
 for msg in st.session_state.messages:
-    selected_option = chat_message_with_options(msg["role"], msg["content"], options)
+    selected_option = chat_message_with_buttons(msg["role"], msg["content"], options)
 
 genai.configure(api_key=api_credentials)
 # for m in genai.list_models():
