@@ -8,13 +8,15 @@ api_credentials = st.secrets['my_api_key']
 #Title
 st.title('Welcome to SIF Feedback Chatbot')
 
-def chat_message_with_buttons(role, content, options):
+# Function to display the chat message with options as buttons in a table format
+def chat_message_with_table_buttons(role, content, options):
     st.chat_message(role).write(content)
     selected_option = None
     
-    cols = st.columns(len(options))
-    for i, option in enumerate(options):
-        if cols[i].button(option):
+    for option in options:
+        col1, col2 = st.columns([3, 1])
+        col1.write(option)
+        if col2.button(f"Select {option}"):
             selected_option = option
     
     return selected_option
