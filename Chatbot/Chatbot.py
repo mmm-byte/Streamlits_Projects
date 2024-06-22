@@ -68,4 +68,4 @@ if st.session_state.current_question < len(questions[selected_lang_code]):
 # Optionally, display a thank you message after all questions are answered
 if st.session_state.current_question == len(questions[selected_lang_code]):
     st.write("Thank you for your feedback!")
-st.write(response)
+st.write(responses)
