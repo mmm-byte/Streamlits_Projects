@@ -62,13 +62,37 @@ if st.session_state["current_question"] < len(st.session_state["messages"]):
 for idx, answer in enumerate(st.session_state.answers):
     st.chat_message("user").write(answer)
 
-# Handle additional chat input and response
-if prompt := st.chat_input():
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
-    response = model.generate_content(prompt, stream=True)
-    resp = ''
-    for chunk in response:
-        resp += chunk.text
-    st.session_state.messages.append({"role": "assistant", "content": resp})
-    st.chat_message("assistant").write(resp)
+# Hide the default chat input box
+st.markdown(
+    """
+    <style>
+    .stTextInput, .stTextArea, .stTextInput div[data-baseweb="input"], .stTextArea div[data-baseweb="textarea"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Show options at the position of the chat input box
+if st.session_state["current_question"] < len(st.session_state["messages"]):
+    current_msg = st.session_state["messages"][st.session_state["current_question"]]
+    
+    if current_msg["role"] == "assistant":
+        if st.session_state["current_question"] == 0:
+            options = ["Excellent", "Good", "Better", "Bad"]
+            selected_option = chat_message_with_buttons(current_msg["content"], options)
+            if selected_option:
+                st.session_state["answers"].append(selected_option)
+                st.session_state["current_question"] += 1
+        elif st.session_state["current_question"] == 1:
+            options = ["Yes", "No"]
+            selected_option = chat_message_with_buttons(current_msg["content"], options)
+            if selected_option:
+                st.session_state["answers"].append(selected_option)
+                st.session_state["current_question"] += 1
+        elif st.session_state["current_question"] == 2:
+            user_input = chat_message_with_text_input(current_msg["content"])
+            if user_input:
+                st.session_state["answers"].append(user_input)
+                st.session_state["current_question"] += 1
