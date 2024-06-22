@@ -1,3 +1,13 @@
 streamlit
 google-generativeai
-toml
+googletrans
+pandas
+gspread
+oauth2client
+google-auth-httplib2
+google-auth-oauthlib
+google-auth
+google-api-python-client
+pydrive2
+gspread-dataframe
+googletrans==3.1.0a0
