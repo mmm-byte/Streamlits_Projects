@@ -66,6 +66,22 @@ answers1 = {
     "hi":["हां", "नहीं"],
 }
 
+# Function to display the chat message with options as buttons
+def chat_message_with_buttons(content, options):
+    st.write(content)
+    selected_option = None
+    button_cols = st.columns(len(options))
+    for idx, option in enumerate(options):
+        if button_cols[idx].button(option):
+            selected_option = option
+    return selected_option
+
+# Function to display the chat message with text input
+def chat_message_with_text_input(content):
+    st.write(content)
+    user_input = st.text_input("Your input:")
+    return user_input
+
 # Define the language options
 languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi":"hi"}  # Add more languages as needed
 
