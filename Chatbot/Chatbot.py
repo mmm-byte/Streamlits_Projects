@@ -8,13 +8,18 @@ api_credentials = st.secrets['my_api_key']
 #Title
 st.title('Welcome to SIF Feedback Chatbot')
 
+def chat_message_with_options(role, content, options):
+    st.chat_message(role).write(content)
+    selected_option = st.radio("Select an option:", options)
+    return selected_option
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "Welcome to SIF Feedback Chtabot! May I know your Name"}]
 
 options = ["Red", "Blue", "Green", "Yellow"]
 
 for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"],options)
+    selected_option = chat_message_with_options(msg["role"], msg["content"], options)
 
 genai.configure(api_key=api_credentials)
 # for m in genai.list_models():
