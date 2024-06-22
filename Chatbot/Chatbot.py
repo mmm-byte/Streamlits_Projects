@@ -87,7 +87,7 @@ languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi":"hi"}  # A
 
 # Select language
 st.chat_message("assistant").write("Select Language")
-selected_lang_code = chat_message_with_buttons("Select Language", answers[selected_lang_code])
+selected_lang_code = chat_message_with_buttons("Select Language", languages)
 #selected_language = st.selectbox("Select Language", list(languages.keys()))
 #selected_lang_code = languages[selected_language]
 
