@@ -11,8 +11,10 @@ st.title('Welcome to SIF Feedback Chatbot')
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "Welcome to SIF Feedback Chtabot! May I know your Name"}]
 
+options = ["Red", "Blue", "Green", "Yellow"]
+
 for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
+    st.chat_message(msg["role"]).write(msg["content"],options)
 
 genai.configure(api_key=api_credentials)
 # for m in genai.list_models():
