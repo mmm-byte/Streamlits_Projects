@@ -134,7 +134,7 @@ if st.button("Submit"):
         st.error("Google credentials not found in environment variables")
 
 # Example usage of the responses list
-#st.write("Responses:", responses)
+st.write("Responses:", responses)
 
 footer = """
 <div style="text-align: center; font-size: medium; margin-top:50px;">
