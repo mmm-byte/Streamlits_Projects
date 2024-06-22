@@ -33,7 +33,7 @@ st.markdown("""
     </a>
 """, unsafe_allow_html=True)
     
-st.title("Participant Feedback Survey")
+st.title("Participant Feedback Chatbot")
 
 # Add a header for the section with questions
 st.header("Please provide your responses to the following questions")
