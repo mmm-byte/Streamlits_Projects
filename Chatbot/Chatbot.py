@@ -8,9 +8,15 @@ api_credentials = st.secrets['my_api_key']
 #Title
 st.title('Welcome to SIF Feedback Chatbot')
 
-def chat_message_with_options(role, content, options):
+def chat_message_with_buttons(role, content, options):
     st.chat_message(role).write(content)
-    selected_option = st.radio("Select an option:", options)
+    selected_option = None
+    
+    cols = st.columns(len(options))
+    for i, option in enumerate(options):
+        if cols[i].button(option):
+            selected_option = option
+    
     return selected_option
 
 if "messages" not in st.session_state:
