@@ -68,7 +68,8 @@ answers1 = {
 
 # Function to display the chat message with options as buttons
 def chat_message_with_buttons(content, options):
-    st.write(content)
+    st.chat_message("assistant").write(content)
+    #st.write(content)
     selected_option = None
     button_cols = st.columns(len(options))
     for idx, option in enumerate(options):
