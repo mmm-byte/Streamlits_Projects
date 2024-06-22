@@ -86,25 +86,48 @@ def chat_message_with_text_input(content):
 languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi":"hi"}  # Add more languages as needed
 
 # Select language
-st.chat_message("assistant").write("Select Language")
-selected_lang_code = chat_message_with_buttons("Select Language", languages)
-#selected_language = st.selectbox("Select Language", list(languages.keys()))
-#selected_lang_code = languages[selected_language]
+#st.chat_message("assistant").write("Select Language")
+#selected_lang_code = chat_message_with_buttons("Select Language", languages)
+selected_language = st.selectbox("Select Language", list(languages.keys()))
+selected_lang_code = languages[selected_language]
 
 # Translate is defined to google translator
 trans = Translator()
 
-# Display questions in the selected language
-responses = []
-responses_original = []
-for question in questions[selected_lang_code]:
-    if "?" in question:
-        response = st.selectbox(question, answers[selected_lang_code])
-    elif "." in question:
-        response = st.selectbox(question, answers1[selected_lang_code])
-    else:
-        response = st.text_input(question)
+# Initialize session state
+if "current_question" not in st.session_state:
+    st.session_state.current_question = 0
+    st.session_state.responses = []
 
+# Display previous questions and responses
+for i in range(st.session_state.current_question):
+    st.chat_message("assistant").write(questions[selected_lang_code][i])
+    st.chat_message("user").write(st.session_state.responses[i])
+
+# Display current question and collect response
+if st.session_state.current_question < len(questions[selected_lang_code]):
+    question = questions[selected_lang_code][st.session_state.current_question]
+    
+    if "?" in question:
+        response = chat_message_with_buttons(question, answers[selected_lang_code])
+    elif "." in question:
+        response = chat_message_with_buttons(question, answers1[selected_lang_code])
+    else:
+        response = chat_message_with_text_input(question)
+
+    if response:
+        st.session_state.responses.append(response)
+        st.session_state.current_question += 1
+        st.experimental_rerun()  # Rerun to display the next question
+
+
+
+
+
+
+
+
+    
     # Check if the response is empty
     responses_original.append(response)
     if response:
@@ -114,7 +137,11 @@ for question in questions[selected_lang_code]:
     else:
         print("not here")
         responses.append(response)
-    
+        
+ # Optionally, display a thank you message after all questions are answered
+if st.session_state.current_question == len(questions[selected_lang_code]):
+    st.write("Thank you for your feedback!")
+st.write(st.session_state.responses)   
 
 # Submit button
 if st.button("Submit"):
