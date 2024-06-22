@@ -115,36 +115,16 @@ if st.session_state.current_question < len(questions[selected_lang_code]):
     else:
         response = chat_message_with_text_input(question)
 
-    if response:
-        st.session_state.responses.append(response)
-        st.session_state.current_question += 1
-        st.experimental_rerun()  # Rerun to display the next question
-
-
-
-
-
-
-
-
-    
-    # Check if the response is empty
     responses_original.append(response)
     if response:
-        print("here")
         translated = trans.translate(response).text
-        responses.append(translated)
-    else:
-        print("not here")
-        responses.append(response)
+        st.session_state.responses.append(translated)
+        st.session_state.current_question += 1
+        st.experimental_rerun()  # Rerun to display the next question
         
  # Optionally, display a thank you message after all questions are answered
 if st.session_state.current_question == len(questions[selected_lang_code]):
     st.write("Thank you for your feedback!")
-st.write(st.session_state.responses)   
-
-# Submit button
-if st.button("Submit"):
     if google_credentials:
         #st.write(google_credentials)
         #credentials = json.loads(google_credentials)
@@ -171,15 +151,16 @@ if st.button("Submit"):
         next_empty_row_org = len(worksheet2.col_values(1)) + 1
     
         # Append the responses to the next empty row
-        worksheet1.insert_row(responses, next_empty_row)
+        worksheet1.insert_row(st.session_state.responses, next_empty_row)
         worksheet2.insert_row(responses_original, next_empty_row_org)
     
         st.success('Responses submitted successfully!')
     else:
         st.error("Google credentials not found in environment variables")
 
+st.write(st.session_state.responses) 
 # Example usage of the responses list
-st.write("Responses:", responses)
+#st.write("Responses:", responses)
 
 footer = """
 <div style="text-align: center; font-size: medium; margin-top:50px;">
