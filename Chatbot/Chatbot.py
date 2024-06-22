@@ -8,7 +8,7 @@ api_credentials = st.secrets['my_api_key']
 st.title('Welcome to SIF Feedback Chatbot')
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "Welcome to SIF Feedback Chtabot"}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "Welcome to SIF Feedback Chtabot!"}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
