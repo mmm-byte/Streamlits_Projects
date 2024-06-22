@@ -161,7 +161,7 @@ if st.session_state.current_question == len(questions[selected_lang_code]):
     else:
         st.error("Google credentials not found in environment variables")
 
-st.write(st.session_state.responses) 
+#st.write(st.session_state.responses) 
 # Example usage of the responses list
 #st.write("Responses:", responses)
 
