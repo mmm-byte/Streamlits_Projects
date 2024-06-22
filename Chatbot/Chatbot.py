@@ -7,8 +7,8 @@ st.title('Welcome to SIF Feedback Chatbot')
 questions = {
     "en": [
         "How are you doing?",
-        "Is the feedback nice?",
-        "Anything to add?"
+        "Is the feedback nice.",
+        "Anything to add"
     ]
 }
 
@@ -25,6 +25,7 @@ selected_lang_code = "en"
 
 # Function to display the chat message with options as buttons
 def chat_message_with_buttons(content, options):
+    st.chat_message(assistant).write(content)
     st.write(content)
     selected_option = None
     button_cols = st.columns(len(options))
