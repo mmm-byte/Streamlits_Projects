@@ -24,6 +24,13 @@ st.markdown("""
         text-decoration: none;
         color: black;
     }
+    .element-container:nth-child(even) .element {
+        border: 2px solid #00FF00 !important; /* Change the border color */
+        color: #00FF00 !important; /* Change the text color */
+    }
+    .element-container:nth-child(even) .avatar {
+        background-color: #00FF00 !important; /* Change the background color of the avatar */
+    }
     </style>
     <a class="icon-link" href="https://github.com/mmm-byte/Streamlits_Projects.git" target="_blank">
         <i class="fab fa-github icon"></i>
