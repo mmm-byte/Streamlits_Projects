@@ -83,6 +83,11 @@ def chat_message_with_text_input(content):
     user_input = st.text_input("Your input:")
     return user_input
 
+# Function to edit responses
+def edit_response(index, response):
+    edited_response = st.text_input(f"Edit response {index + 1}", value=response, key=f"edit_{index}")
+    return edited_response
+
 # Define the language options
 languages = {"English": "en", "Malay": "ms","Indonesian":"id","Hindi":"hi"}  # Add more languages as needed
 
