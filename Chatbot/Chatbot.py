@@ -179,7 +179,7 @@ if st.session_state.current_question == len(questions[selected_lang_code]):
     
         # Append the responses to the next empty row
         worksheet1.insert_row(st.session_state.responses, next_empty_row)
-        worksheet2.insert_row(responses_original, next_empty_row_org)
+        worksheet2.insert_row(st.session_state.responses_original, next_empty_row_org)
     
         st.success('Responses submitted successfully!')
     else:
