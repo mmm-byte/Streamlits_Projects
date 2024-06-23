@@ -168,7 +168,7 @@ if st.session_state.current_question == len(questions[selected_lang_code]):
 
 footer = """
 <div style="text-align: center; font-size: medium; margin-top:50px;">
-    If you find BrainGazer useful or interesting, please consider starring it on GitHub.
+    If you find Participant Feedback Chatbot useful or interesting, please consider starring it on GitHub.
     <hr>
     <a href="https://github.com/mmm-byte/Streamlits_Projects.git" target="_blank">
     <img src="https://img.shields.io/github/stars/SaiJeevanPuchakayala/BrainGazer.svg?style=social" alt="GitHub stars">
