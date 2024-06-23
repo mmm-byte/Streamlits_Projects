@@ -101,17 +101,34 @@ selected_lang_code = languages[selected_language]
 trans = Translator()
 
 #Original response of the user
-responses_original = []
+#responses_original = []
 
 # Initialize session state
 if "current_question" not in st.session_state:
     st.session_state.current_question = 0
     st.session_state.responses = []
+    st.session_state.responses_original = []
+    st.session_state.editing = -1
 
 # Display previous questions and responses
 for i in range(st.session_state.current_question):
     st.chat_message("assistant").write(questions[selected_lang_code][i])
-    st.chat_message("user").write(st.session_state.responses[i])
+    
+    # If editing, show edit input; otherwise show response with edit icon
+    if st.session_state.editing == i:
+        edited_response = edit_response(i, st.session_state.responses[i])
+        if st.button("Save", key=f"save_{i}"):
+            st.session_state.responses[i] = edited_response
+            st.session_state.editing = -1
+            st.experimental_rerun()
+    else:
+        col1, col2 = st.columns([10, 1])
+        with col1:
+            st.chat_message("user").write(st.session_state.responses[i])
+        with col2:
+            if st.button("✏️", key=f"edit_{i}"):
+                st.session_state.editing = i
+                st.experimental_rerun()
 
 # Display current question and collect response
 if st.session_state.current_question < len(questions[selected_lang_code]):
@@ -124,10 +141,11 @@ if st.session_state.current_question < len(questions[selected_lang_code]):
     else:
         response = chat_message_with_text_input(question)
 
-    responses_original.append(response)
+    #responses_original.append(response)
     if response:
         translated = trans.translate(response).text
         st.session_state.responses.append(translated)
+        st.session_state.responses_original.append(response)
         st.session_state.current_question += 1
         st.experimental_rerun()  # Rerun to display the next question
         
